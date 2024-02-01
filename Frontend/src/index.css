@@ -1,0 +1,30 @@
+/* Reset default margin, padding, and box-sizing for all elements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Uncomment the font import if you need "Poppins" font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+/* Import "Rock Salt" font for the body */
+@import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
+
+/* Global styles for the body */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Use "Poppins" font for the body */
+  font-family: "Poppins", sans-serif;
+}
+
+/* Code element styling */
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

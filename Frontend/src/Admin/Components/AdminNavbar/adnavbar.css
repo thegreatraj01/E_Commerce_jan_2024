@@ -1,0 +1,16 @@
+/* Import the Google Font */
+@import url("https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap");
+
+/* Styles for the navigation bar */
+
+/* Styles for the brand text within the navigation bar */
+.nav_brand {
+  text-transform: uppercase; /* Convert text to uppercase */
+  font-family: "Rock Salt", cursive; /* Apply the Rock Salt font */
+  font-size: 20px;
+  text-shadow: 3px 3px 3px #ababab;
+  
+}
+.nav_brand a{
+  color: #000;
+}
