@@ -29,6 +29,7 @@ router.delete('/delete/:filename', async (req, res) => {
     try {
         const filename = req.params.filename;
         const filePath = path.join('./multer/images', filename);
+        console.log(filename, filePath)
 
         // Check if the file exists
         const fileExists = await fs.access(filePath).then(() => true).catch(() => false);

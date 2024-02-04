@@ -13,6 +13,9 @@
   margin: auto;
   padding: 2vw 4vw;
 }
+.login-signup-container p {
+  cursor: pointer;
+}
 .login-signup-container h1 {
   margin: 20px auto;
 }
@@ -166,7 +169,6 @@
     /* margin: auto; */
     text-align: center;
   }
- 
 
   .login-signup-container button {
     width: 90%;

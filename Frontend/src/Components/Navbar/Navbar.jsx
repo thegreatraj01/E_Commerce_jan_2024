@@ -5,13 +5,17 @@ import cart_icon from '../Assets/cart_icon.png';
 import { Link, useLocation, } from 'react-router-dom';
 import { ShopContext } from '../../Context/ShopContext';
 import { IoIosArrowDropdown } from "react-icons/io";
+import { useSelector, useDispatch } from 'react-redux';
+import { removeUser } from '../../ReduxToolkit/Slices/AuthSlice';
 
 const Navbar = () => {
   const { totalItemInCart } = useContext(ShopContext);
   const [menu, setMenu] = useState("shop");
   const menuref = useRef();
   const location = useLocation().pathname;
-
+  const user = useSelector(state => state.user);
+  const isLogin = Object.keys(user).length === 0 ? false : true;
+  const dispath = useDispatch();
 
   const dropdown_toggle = (e) => {
     menuref.current.classList.toggle('nav-menu-visible');
@@ -28,7 +32,7 @@ const Navbar = () => {
         setMenu("women");
       } else if (location === '/kids') {
         setMenu("kids");
-      }else {
+      } else {
         setMenu("");
       }
     };
@@ -52,7 +56,9 @@ const Navbar = () => {
         <li onClick={() => { setMenu("kids") }}><Link style={{ textDecoration: "none" }} to='/kids'>Kids </Link> {menu === "kids" && <hr />}</li>
       </ul>
       <div className="nav-logo-cart">
-        <Link to='/login'> <button>Login</button></Link>
+        {!isLogin && <Link to='/login'> <button>Login</button></Link>}
+        {isLogin && <Link to='/login'> <button onClick={() => { dispath(removeUser()); localStorage.removeItem("jwt") }}>Logout</button></Link>}
+
         <Link to='/cart' ><img className='cart-img' src={cart_icon} alt="cart-icon" /></Link>
         <div className="nav-cart-count">
           {totalItemInCart()}

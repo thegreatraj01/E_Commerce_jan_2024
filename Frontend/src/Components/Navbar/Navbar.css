@@ -44,10 +44,11 @@
 }
 
 .nav-menu hr {
+  margin: 0;
   border: none;
   width: 80%;
   height: 3px;
-  background: #ff4141;
+  background: #fc2f2f;
 }
 
 .nav-logo-cart {
@@ -58,16 +59,17 @@
 }
 
 .nav-logo-cart button {
-  width: 7vw;
-  height: 3vw;
+  min-width: 7vw;
+  min-height: 3vw;
   outline: none;
   border: 1px solid #7a7a7a;
   color: #515151;
   border-radius: 75px;
-  font-size: 2vw;
+  font-size: 1.8vw;
   font-weight: 500;
   background-color: white;
   cursor: pointer;
+  padding: 3px;
 }
 .nav-logo-cart button:active {
   background-color: #f3f3f3;

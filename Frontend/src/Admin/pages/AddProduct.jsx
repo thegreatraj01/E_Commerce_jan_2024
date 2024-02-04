@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { IoCloudUploadOutline } from "react-icons/io5";
 import axios from 'axios';
-import { API_BASE_URL } from '../../confij';
+import { API_BASE_URL, CONFIG_OBJ } from '../../confij';
 import { toast, Bounce } from 'react-toastify';
 
 
@@ -16,12 +16,16 @@ function AddProduct() {
     const [oldPrice, setOldPrice] = useState("");
     const [newPrice, setNewPrice] = useState("");
     const [Category, setCategory] = useState("men");
-    const [image, setImage] = useState(false);
+    const [image, setImage] = useState("");
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        if (!image) {
+            toast.error('🦄 Please select an image.', {
+            });
+            return;
+        }
         try {
             const data = new FormData();
             data.append('name', Name);
@@ -29,12 +33,10 @@ function AddProduct() {
             data.append('old_price', oldPrice);
             data.append('new_price', newPrice);
             data.append('category', Category);
+            data.append('product', image);
+            console.log(image)
 
-            // Check if an image is selected
-            if (image) {
-                data.append('product', image);
-            }
-            const response = await axios.post(`${API_BASE_URL}/addproduct`, data);
+            const response = await axios.post(`${API_BASE_URL}/addproduct`, data, CONFIG_OBJ);
             if (response.status === 201) {
                 toast.success(`🦄 ${response.data.message}`, {
                     position: "top-right",
@@ -66,11 +68,11 @@ function AddProduct() {
                 transition: Bounce,
             });
         } finally {
+            setImage("");
             setName("");
             setDiscription("");
             setOldPrice('');
             setNewPrice('');
-            setImage(false);
             setCategory("man");
         }
     };
@@ -124,8 +126,9 @@ function AddProduct() {
                                 type="file"
                                 className=" d-none"
                                 id="fileInput"
-                                onChange={(e) => { setImage(e.target.files[0]) }}
+                                onChange={(e) => { setImage(e.target.files[0]); console.log(image) }}
                                 required
+                                accept=".jpg,.jpeg,.png,.gif"
                             />
                         </Form.Group>
                     </Row>

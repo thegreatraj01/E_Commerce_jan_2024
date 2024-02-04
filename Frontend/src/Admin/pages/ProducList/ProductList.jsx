@@ -6,7 +6,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Container } from 'react-bootstrap';
 import axios from 'axios';
-import { API_BASE_URL } from '../../../confij';
+import { API_BASE_URL, CONFIG_OBJ } from '../../../confij';
 import Spinner from 'react-bootstrap/Spinner';
 
 function ProductList() {
@@ -30,7 +30,7 @@ function ProductList() {
         const action = window.confirm('Are you sure you want to delete');
         try {
             if (action) {
-                const response = await axios.delete(`${API_BASE_URL}/removeproduct/${id}`);
+                const response = await axios.delete(`${API_BASE_URL}/removeproduct/${id}`, CONFIG_OBJ);
                 console.log(response);
                 if (response.status === 200) {
                     fetchAllProduct();  // Call the function to update the product list

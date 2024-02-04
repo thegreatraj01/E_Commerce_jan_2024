@@ -1,5 +1,9 @@
 import Product from '../models/productModel.js';
 import { upload } from '../multer/multer.js';
+import path from 'path';
+import fs from 'fs/promises';
+
+
 
 // for add a new product in the database 
 const addProduct = async (req, res) => {
@@ -41,22 +45,39 @@ const addProduct = async (req, res) => {
 };
 
 
+
 const deleteProduct = async (req, res) => {
     const id = req.params.id;
 
     try {
-        const deletedProduct = await Product.findOneAndDelete({ _id: id });
+        // const deletedProduct = await Product.findOneAndDelete({ _id: id });
+        const product = await Product.findOneAndDelete({ _id: id });
 
-        if (deletedProduct) {
-            res.status(200).json({ message: 'Product deleted successfully', data: deletedProduct });
+        if (product) {
+            // Delete the associated image file
+            const filename = product.image;
+            const filePath = path.join('./multer/images', filename);
+
+            const fileExists = await fs.access(filePath).then(() => true).catch(() => false);
+
+            if (fileExists) {
+                // Delete the file
+                await fs.unlink(filePath);
+                // console.log(`Deleted file: ${filePath}`);
+            }
+
+            res.status(200).json({ message: 'Product deleted successfully' });
         } else {
             res.status(404).json({ message: 'No product found' });
         }
     } catch (error) {
-        console.error(error);
+        console.error('Error deleting product or file:', error);
         res.status(500).json({ message: error.message });
     }
-}
+};
+
+
+
 
 const allproducts = async (req, res) => {
     try {
