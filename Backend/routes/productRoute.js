@@ -1,13 +1,15 @@
 import express from 'express';
 const router = express.Router(); // Capital "R" for Router
 // import { upload } from '../multer/multer.js';
-import { addProduct, deleteProduct, allproducts } from '../controller/productController.js';
+import { addProduct, deleteProduct, allproducts  ,newCollection ,popularinwomen} from '../controller/productController.js';
 import { protect, admin } from '../middleware/UserAuth.js';
 
 
 
-router.post('/addproduct', addProduct);
+router.post('/addproduct', protect, admin, addProduct);
 router.delete('/removeproduct/:id', protect, admin, deleteProduct);
-router.get('/allproducts', allproducts)
+router.get('/allproducts', allproducts);
+router.get('/newcollection', newCollection);
+router.get('/popularinwomen',popularinwomen);
 
 export default router;

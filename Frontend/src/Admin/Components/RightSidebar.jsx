@@ -10,9 +10,9 @@ function RightSidebar() {
         <div className='right-sidebar'>
             <div className="row m-0 p-0">
                 <div className='p-0 '>
-                    <div className='nav-button-container'><MdOutlineProductionQuantityLimits /> <button className='nav-button'> <Link to='/addproduct' > Add Product</Link></button></div>
-                    <div className='nav-button-container' ><IoReorderFour /><button className='nav-button'><Link to='/productlist'>Products List</Link></button></div>
-                    <div className='nav-button-container' ><FcSalesPerformance /><button className='nav-button'><Link to='/orders'>orders</Link></button></div>
+                    <div className='nav-button-container'><MdOutlineProductionQuantityLimits /> <button className='nav-button'> <Link to='/admin/addproduct' > Add Product</Link></button></div>
+                    <div className='nav-button-container' ><IoReorderFour /><button className='nav-button'><Link to='/admin/productlist'>Products List</Link></button></div>
+                    <div className='nav-button-container' ><FcSalesPerformance /><button className='nav-button'><Link to='/admin/orders'>orders</Link></button></div>
                 </div>
             </div>
         </div>

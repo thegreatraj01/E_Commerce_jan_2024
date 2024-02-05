@@ -4,8 +4,12 @@ import star_icon from '../Assets/star_icon.png';
 import star_dull_icon from '../Assets/star_dull_icon.png';
 import { ShopContext } from '../../Context/ShopContext';
 import { toast } from 'react-toastify';
+import { API_BASE_URL } from '../../confij';
+import Loader from '../Loader/Loader';
 
-const ProductDisplay = (props) => {
+
+
+const ProductDisplay = ({ product }) => {
     const { addToCart } = useContext(ShopContext);
     const notifySuccess = () => {
         toast.success('Added To Cart', {
@@ -18,19 +22,21 @@ const ProductDisplay = (props) => {
         });
     };
 
-   
-    const product = props.product;
+    // Check if product is available
+    if (!product) {
+        return <Loader/>; // Placeholder or message when product is not available
+    }
     return (
         <div className='Product-display'>
             <div className="product-dispaly-left">
                 <div className="product-display-img-list">
-                    <img src={product.image} alt="productimg" />
-                    <img src={product.image} alt="productimg" />
-                    <img src={product.image} alt="productimg" />
-                    <img src={product.image} alt="productimg" />
+                    <img src={`${API_BASE_URL}/images/${product.image}`} alt="productimg" />
+                    <img src={`${API_BASE_URL}/images/${product.image}`} alt="productimg" />
+                    <img src={`${API_BASE_URL}/images/${product.image}`} alt="productimg" />
+                    <img src={`${API_BASE_URL}/images/${product.image}`} alt="productimg" />
                 </div>
                 <div className="product-display-img">
-                    <img className='productdisplay-main-img' src={product.image} alt="productmainimage" />
+                    <img className='productdisplay-main-img' src={`${API_BASE_URL}/images/${product.image}`} alt="productmainimage" />
                 </div>
             </div>
             <div className="product-dispaly-right">
@@ -60,7 +66,7 @@ const ProductDisplay = (props) => {
                         <div>XXL</div>
                     </div>
                 </div>
-                <button onClick={(e) => { e.preventDefault(); addToCart(product.id); notifySuccess(); }}>
+                <button onClick={(e) => { e.preventDefault(); addToCart(product._id); notifySuccess(); }}>
                     ADD TO CART
                 </button>
 

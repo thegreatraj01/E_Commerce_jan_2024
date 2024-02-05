@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { IoCloudUploadOutline } from "react-icons/io5";
 import axios from 'axios';
-import { API_BASE_URL, CONFIG_OBJ } from '../../confij';
+import { API_BASE_URL } from '../../confij';
 import { toast, Bounce } from 'react-toastify';
 
 
@@ -34,9 +34,14 @@ function AddProduct() {
             data.append('new_price', newPrice);
             data.append('category', Category);
             data.append('product', image);
-            console.log(image)
 
-            const response = await axios.post(`${API_BASE_URL}/addproduct`, data, CONFIG_OBJ);
+            const response = await axios.post(`${API_BASE_URL}/addproduct`, data, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem("jwt")}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
             if (response.status === 201) {
                 toast.success(`🦄 ${response.data.message}`, {
                     position: "top-right",
@@ -115,7 +120,7 @@ function AddProduct() {
                             <Form.Select required value={Category} onChange={(e) => setCategory(e.target.value)}>
                                 <option value="men">Men</option>
                                 <option value="women">Women</option>
-                                <option value="kid">Kid</option>
+                                <option value="Kid">Kid</option>
                             </Form.Select>
                         </Form.Group>
                         <Form.Group as={Col} >
@@ -126,7 +131,7 @@ function AddProduct() {
                                 type="file"
                                 className=" d-none"
                                 id="fileInput"
-                                onChange={(e) => { setImage(e.target.files[0]); console.log(image) }}
+                                onChange={(e) => { setImage(e.target.files[0]) }}
                                 required
                                 accept=".jpg,.jpeg,.png,.gif"
                             />

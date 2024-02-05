@@ -31,7 +31,8 @@ const addProduct = async (req, res) => {
                 image: image.filename,
                 new_price,
                 old_price,
-                description
+                description,
+                owner: req.user
             });
 
             // Sending a success response with the created product details
@@ -77,8 +78,6 @@ const deleteProduct = async (req, res) => {
 };
 
 
-
-
 const allproducts = async (req, res) => {
     try {
         const allproducts = await Product.find();
@@ -105,6 +104,24 @@ const allproducts = async (req, res) => {
     }
 }
 
+const newCollection = async (req, res) => {
+    try {
+        const newCollection = await Product.find({}).sort({ createdAt: -1 }).limit(8);
+        res.status(200).json({data: newCollection});
+    } catch (error) {
+        console.log('new collection error', error);
+        res.status(500).json({ message: 'internal server error', error: error });
+    }
+}
 
+const popularinwomen = async (req, res) => {
+    try {
+        const newCollection = await Product.find({category:'women'}).sort({ createdAt: -1 }).limit(4);
+        res.status(200).json({data: newCollection});
+    } catch (error) {
+        console.log('popular in women error', error);
+        res.status(500).json({ message: 'internal server error', error: error });
+    }
+}
 
-export { addProduct, deleteProduct, allproducts };
+export { addProduct, deleteProduct, allproducts, newCollection ,popularinwomen };
