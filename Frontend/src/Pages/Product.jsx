@@ -18,7 +18,7 @@ const Product = () => {
       <UserLayout>
         <Breadcrums product={product && product} />
         <ProductDisplay product={product && product} />
-        <DiscriptionBox />
+        <DiscriptionBox product={product && product} />
         <RealeatedProduct />
       </UserLayout>
 

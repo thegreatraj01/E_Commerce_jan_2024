@@ -22,7 +22,7 @@ import ProductList from './Admin/pages/ProducList/ProductList';
 function App() {
   // const user = useSelector(state => state.user);
   // const isAdmin = user.isAdmin;
-  
+
   return (
     <div>
       <BrowserRouter>
@@ -41,8 +41,8 @@ function App() {
           {/* for admin route */}
           <Route path='/admin' element={<CheckAdmin />}>
             <Route path='addproduct' element={<AddProduct />} />
-            <Route path='orders' element={<Orders/>} />
-            <Route path='productlist' element={<ProductList/>} />
+            <Route path='orders' element={<Orders />} />
+            <Route path='productlist' element={<ProductList />} />
           </Route>
           {/* Error page for unmatched routes */}
           <Route path='*' element={<ErrorPage />} />

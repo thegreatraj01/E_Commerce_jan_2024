@@ -13,7 +13,7 @@ const Navbar = () => {
   const [menu, setMenu] = useState("shop");
   const menuref = useRef();
   const location = useLocation().pathname;
-  const user = useSelector(state => state.user);
+  const user = useSelector(state => state.userslice.user);
   const isLogin = Object.keys(user).length === 0 ? false : true;
   const dispath = useDispatch();
 

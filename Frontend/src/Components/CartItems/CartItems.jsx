@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import './CartItems.css';
 import { ShopContext } from '../../Context/ShopContext';
 // import remove_icon from '../Assets/cart_cross_icon.png';
@@ -6,9 +6,18 @@ import { MdDelete } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa";
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import { API_BASE_URL } from '../../confij';
+import {removeFromCart} from '../../ReduxToolkit/Slices/CartSlice.js';
+import { useDispatch } from 'react-redux';
 
 const CartItems = () => {
-    const { allproduct, getTotalCartAmount, removeFromCart, cartItem, addToCart, deleteItem } = useContext(ShopContext);
+    const cartItem = useSelector(state => state.cartslice.cart);
+    const dispatch = useDispatch();
+    
+    // console.log(cartItem);
+    const { getTotalCartAmount, addToCart, deleteItem } = useContext(ShopContext);
+
     const notifyDelete = () => {
         toast.error('Item removed!', {
             position: 'top-right',
@@ -19,10 +28,7 @@ const CartItems = () => {
             draggable: false,
         });
     };
-    useEffect(() => console.log('from cart'))
-
-    // console.log(allproduct,cartItem)
-    // console.log(getTotalCartAmount())
+    
 
     return (
         <div className='CartItems'>
@@ -35,23 +41,22 @@ const CartItems = () => {
                 <p>Remove</p>
             </div>
             <hr />
-            {allproduct.map((e) => {
-                const quantity = cartItem && cartItem[e.id] ? cartItem[e.id] : 0;
+            {cartItem.map((e) => {
 
-                if (quantity > 0) {
+                if (0 < 1) {
                     return (
                         <div key={e.id}>
                             <div className="cartitems-format cartitems-format-main">
-                                <img src={e.image} alt="productimage" className='cartproduct-icon' />
+                                <img src={`${API_BASE_URL}/images/${e.image}`} alt="productimage" className='cartproduct-icon' />
                                 <p>{e.name}</p>
                                 <p>${e.new_price}</p>
                                 <div className='cartitems-quantity'>
-                                    <button onClick={() => removeFromCart(e.id)}>< FaMinus /></button>
-                                    <p >{quantity}</p>
+                                    {/* <button onClick={() => removeFromCart(e.id)}>< FaMinus /></button> */}
+                                    {/* <p >{quantity}</p> */}
                                     <button onClick={() => addToCart(e.id)}><FaPlus /></button>
                                 </div>
-                                <p>${e.new_price * quantity}</p>
-                                <MdDelete id='cartdeleteicon' onClick={() => { deleteItem(e.id); notifyDelete(); }} />
+                                {/* <p>${e.new_price * quantity}</p> */}
+                                <MdDelete id='cartdeleteicon' onClick={() => {dispatch(removeFromCart(e._id)); notifyDelete(); }} />
                                 {/* <img src={remove_icon} alt="deleteicon" /> */}
                             </div>
                             <hr />

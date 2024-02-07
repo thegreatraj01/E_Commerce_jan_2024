@@ -107,7 +107,7 @@ const allproducts = async (req, res) => {
 const newCollection = async (req, res) => {
     try {
         const newCollection = await Product.find({}).sort({ createdAt: -1 }).limit(8);
-        res.status(200).json({data: newCollection});
+        res.status(200).json({ data: newCollection });
     } catch (error) {
         console.log('new collection error', error);
         res.status(500).json({ message: 'internal server error', error: error });
@@ -116,12 +116,26 @@ const newCollection = async (req, res) => {
 
 const popularinwomen = async (req, res) => {
     try {
-        const newCollection = await Product.find({category:'women'}).sort({ createdAt: -1 }).limit(4);
-        res.status(200).json({data: newCollection});
+        const newCollection = await Product.find({ category: 'women' }).sort({ createdAt: -1 }).limit(4);
+        res.status(200).json({ data: newCollection });
     } catch (error) {
         console.log('popular in women error', error);
         res.status(500).json({ message: 'internal server error', error: error });
     }
 }
 
-export { addProduct, deleteProduct, allproducts, newCollection ,popularinwomen };
+const realetedproducts = async (req, res) => {
+    const productid = req.params.id;
+    try {
+        const currentproduct = await Product.findOne({ _id: productid });
+        const currentproductcategory = currentproduct.category;
+        const relatedProducts = await Product.find({ category: currentproductcategory }).sort({ createdAt: -1 }).limit(4);
+
+        res.status(200).json({ message: "related products", data: relatedProducts });
+    } catch (error) {
+        console.log('related products error', error);
+        res.status(500).json({ message: 'internal server error', error: error });
+    }
+}
+
+export { addProduct, deleteProduct, allproducts, newCollection, popularinwomen, realetedproducts };

@@ -1,16 +1,19 @@
-import React, { useContext } from 'react';
+// import React, { useContext } from 'react';
 import './Productdisplay.css';
 import star_icon from '../Assets/star_icon.png';
 import star_dull_icon from '../Assets/star_dull_icon.png';
-import { ShopContext } from '../../Context/ShopContext';
+// import { ShopContext } from '../../Context/ShopContext';
 import { toast } from 'react-toastify';
 import { API_BASE_URL } from '../../confij';
 import Loader from '../Loader/Loader';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../ReduxToolkit/Slices/CartSlice.js';
 
 
 
 const ProductDisplay = ({ product }) => {
-    const { addToCart } = useContext(ShopContext);
+    const dispatch = useDispatch();
+
     const notifySuccess = () => {
         toast.success('Added To Cart', {
             position: 'top-right', // You can customize the position
@@ -66,7 +69,7 @@ const ProductDisplay = ({ product }) => {
                         <div>XXL</div>
                     </div>
                 </div>
-                <button onClick={(e) => { e.preventDefault(); addToCart(product._id); notifySuccess(); }}>
+                <button onClick={(e) => { e.preventDefault(); dispatch(addToCart(product)); notifySuccess(); }}>
                     ADD TO CART
                 </button>
 
