@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './CartItems.css';
-import { ShopContext } from '../../Context/ShopContext';
 // import remove_icon from '../Assets/cart_cross_icon.png';
 import { MdDelete } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
@@ -8,15 +7,15 @@ import { FaMinus } from "react-icons/fa";
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { API_BASE_URL } from '../../confij';
-import { removeFromCart, addToCart, decreaseItemCount } from '../../ReduxToolkit/Slices/CartSlice.js';
+import { removeFromCart, addToCart, decreaseItemCount ,getTotalCartAmount} from '../../ReduxToolkit/Slices/CartSlice.js';
 import { useDispatch } from 'react-redux';
 
 const CartItems = () => {
     const cartItem = useSelector(state => state.cartslice.cart);
     const dispatch = useDispatch();
-
+    const totalCartAmount = useSelector(getTotalCartAmount);
     // console.log(cartItem);
-    const { getTotalCartAmount } = useContext(ShopContext);
+
 
     const notifyDelete = () => {
         toast.error('Item removed!', {
@@ -72,7 +71,7 @@ const CartItems = () => {
                     <div>
                         <div className="cartitems-total-icon">
                             <p>Subtoatal</p>
-                            <p>${getTotalCartAmount()}</p>
+                            <p>${totalCartAmount.toFixed(2)}</p>
                         </div>
                         <hr />
                         <div className="cartitems-total-icon">
@@ -82,7 +81,7 @@ const CartItems = () => {
                         <hr />
                         <div className="cartitems-total-icon">
                             <h3>Total</h3>
-                            <h3>${getTotalCartAmount()}</h3>
+                            <h3>${totalCartAmount.toFixed(2)}</h3>
                         </div>
                     </div>
                     <button>PROCEED TO CHECKOUT</button>

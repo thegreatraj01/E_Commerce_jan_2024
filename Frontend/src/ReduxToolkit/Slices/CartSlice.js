@@ -41,3 +41,12 @@ export const totalItemInCart = createSelector(
     [selectCart],
     cart => cart.length
 );
+
+export const getTotalCartAmount = createSelector(
+    [selectCart],
+    (cart) => {
+      return cart.reduce((total, item) => {
+        return total + item.new_price * item.count;
+      }, 0);
+    }
+  );
