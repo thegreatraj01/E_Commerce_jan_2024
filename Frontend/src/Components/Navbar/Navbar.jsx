@@ -1,15 +1,18 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Navbar.css';
 import logo from '../Assets/logo.png';
 import cart_icon from '../Assets/cart_icon.png';
 import { Link, useLocation, } from 'react-router-dom';
-import { ShopContext } from '../../Context/ShopContext';
+// import { ShopContext } from '../../Context/ShopContext';
 import { IoIosArrowDropdown } from "react-icons/io";
 import { useSelector, useDispatch } from 'react-redux';
 import { removeUser } from '../../ReduxToolkit/Slices/AuthSlice';
+import { totalItemInCart } from '../../ReduxToolkit/Slices/CartSlice.js';
 
 const Navbar = () => {
-  const { totalItemInCart } = useContext(ShopContext);
+  const cartLength = useSelector(totalItemInCart);
+  // console.log(totalItemInCart());
+  // const { totalItemInCart } = useContext(ShopContext);
   const [menu, setMenu] = useState("shop");
   const menuref = useRef();
   const location = useLocation().pathname;
@@ -61,7 +64,7 @@ const Navbar = () => {
 
         <Link to='/cart' ><img className='cart-img' src={cart_icon} alt="cart-icon" /></Link>
         <div className="nav-cart-count">
-          {totalItemInCart()}
+          {cartLength}
         </div>
       </div>
     </nav>

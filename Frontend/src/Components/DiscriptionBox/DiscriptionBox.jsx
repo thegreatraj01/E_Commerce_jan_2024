@@ -2,7 +2,7 @@ import React from 'react';
 import './discription.css';
 
 const DiscriptionBox = ({product}) => {
-    console.log(product)
+    // console.log(product)
     return (
         <div className='discription-box'>
             <div className="descriptionbox-navigator">
