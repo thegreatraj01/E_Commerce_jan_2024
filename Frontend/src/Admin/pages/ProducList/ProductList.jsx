@@ -8,10 +8,17 @@ import { Container } from 'react-bootstrap';
 import axios from 'axios';
 import { API_BASE_URL, CONFIG_OBJ } from '../../../confij';
 import Spinner from 'react-bootstrap/Spinner';
+import EditProduct from '../EditProduct/EditProduct';
 
 function ProductList() {
+    // for hide and show edit model 
+    const [showModal, setShowModal] = useState(false);
 
     const [allProduct, setAllProduct] = useState([]);
+    const [editableproduct, setEditableProduct] = useState({});
+
+
+
 
     const fetchAllProduct = async () => {
         try {
@@ -63,7 +70,7 @@ function ProductList() {
                                     <td className='td-flex td-discription'><p>{product?.description}</p></td>
                                     <td className='td-flex'>{product?.new_price}</td>
                                     <td className='td-flex'>
-                                        <FaRegEdit className=' fs-3 me-2' />
+                                        <FaRegEdit className=' fs-3 me-2'  onClick={() => { setEditableProduct(product);  setShowModal(true);}} />
                                         <MdDelete fill='red' className=' fs-3 ms-3' onClick={() => handleDeleteProduct(product._id)} />
                                     </td>
                                 </tr>
@@ -71,6 +78,8 @@ function ProductList() {
                         })}
                     </tbody>
                 </Table>
+
+                <EditProduct showModal={showModal}  setShowModal={setShowModal} product={editableproduct} seteditableproduct={setEditableProduct}  fetchAllProduct={fetchAllProduct}/>
             </Container> : <Spinner animation="grow" />}
         </Layout>
     );

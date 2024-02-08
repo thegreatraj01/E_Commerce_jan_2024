@@ -138,4 +138,34 @@ const realetedproducts = async (req, res) => {
     }
 }
 
-export { addProduct, deleteProduct, allproducts, newCollection, popularinwomen, realetedproducts };
+const updateProduct = async (req, res) => {
+    try {
+        const productId = req.params.id;
+        
+        // Fetch the current product details
+        let currentProduct = await Product.findById(productId);
+
+        // Check if the product exists
+        if (!currentProduct) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+
+        // Update the product fields excluding the image
+        currentProduct = await Product.findOneAndUpdate(
+            { _id: productId },
+            { $set: { ...req.body, image: currentProduct.image } },
+            { new: true }
+        );
+
+        // Send a success response with the updated product details
+        return res.status(200).json({ message: 'Product updated successfully', product: currentProduct });
+    } catch (error) {
+        // Handling errors
+        console.error('Update product error', error);
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
+
+
+export { addProduct, deleteProduct, allproducts, newCollection, popularinwomen, realetedproducts, updateProduct };
