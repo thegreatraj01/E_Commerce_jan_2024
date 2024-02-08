@@ -12,13 +12,13 @@ import UserLayout from '../Components/UserLayout/UserLayout';
 
 
 const LoginSignup = () => {
-  const [page, setpage] = useState("Sign up");
+  const [page, setpage] = useState("Login");
   const [Name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispath = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector(state => state.user);
+  const user = useSelector(state => state.userslice.user);
   // console.log(user);
 
   const handleSignUp = async (e) => {

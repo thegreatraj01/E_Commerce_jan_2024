@@ -14,3 +14,11 @@
 .nav_brand a{
   color: #000;
 }
+
+/* Custom styles to adjust the position of the dropdown menu */
+.dropdown-menu {
+  /* Adjust the top position */
+  top: 105% !important; /* Example value, adjust as needed */
+  /* Adjust the left position */
+  left: -70px !important; /* Example value, adjust as needed */
+}

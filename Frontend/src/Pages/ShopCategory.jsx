@@ -1,42 +1,41 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import './CSS/shopcategory.css';
 import { ShopContext } from '../Context/ShopContext';
-import dropdown_icon from '../Components/Assets/dropdown_icon.png';
 import Item from '../Components/Items/Item';
 import UserLayout from '../Components/UserLayout/UserLayout';
-
+import PaginationPage from '../Components/Pagination/Pagination';
 
 const ShopCategory = (props) => {
   const { allproduct } = useContext(ShopContext);
+  const [currentPage, setCurrentPage] = useState(1);
+  let postPerPage = 8; // Define as normal variable
+
+  // Filter products by category
+  const thisCategorypost = allproduct.filter((item) => props.category === item.category);
+
+  // Calculate pagination
+  const lastPostIndex = currentPage * postPerPage;
+  const firstPostIndex = lastPostIndex - postPerPage;
+  const currentPosts = thisCategorypost.slice(firstPostIndex, lastPostIndex);
 
   return (
     <UserLayout>
       <div className='shop-category'>
         <img className='shop-category-banner' src={props.banner} alt="banner" />
-        <div className="shopcategory-indexSort">
-          <p>
-            <span>Showing 1-12 </span> Out of 36 products
-          </p>
-          <div className="shop-category-sort">
-            short by <img src={dropdown_icon} alt="dropdownicon" />
-          </div>
-        </div>
+
         <div className="shopcategory-product">
-          {allproduct.map((item, i) => {
-            if (props.category === item.category) {
-              return <Item key={i} id={item._id} name={item.name} image={item.image} new_price={item.new_price} old_price={item.old_price} />
-            } else {
-              return null;
-            }
-          })}
+          {currentPosts.map((item, i) => (
+            <Item key={i} id={item._id} name={item.name} image={item.image} new_price={item.new_price} old_price={item.old_price} />
+          ))}
         </div>
-        <div className="shopcategory-loadmore">
-          Explore More
+
+        <div className=' d-flex justify-content-center my-3'>
+          {/* Pass necessary props to PaginationPage component */}
+          <PaginationPage totalPosts={thisCategorypost.length} currentPage={currentPage} setCurrentPage={setCurrentPage} postPerPage={postPerPage} />
         </div>
       </div>
     </UserLayout>
-
-  )
+  );
 }
 
-export default ShopCategory
+export default ShopCategory;
