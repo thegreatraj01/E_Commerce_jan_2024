@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Navbar, Nav, Container, Form, Button, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { AiOutlineShoppingCart, AiOutlineSearch } from 'react-icons/ai';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeUser } from '../../ReduxToolkit/Slices/AuthSlice';
 import { totalItemInCart } from '../../ReduxToolkit/Slices/CartSlice.js';
+import './Navbar.css'
+import SearchForm from '../SearchForm/SearchForm.jsx';
 
 function Navigation() {
   const cartLength = useSelector(totalItemInCart);
@@ -36,11 +38,8 @@ function Navigation() {
             </Nav>
             <Nav>
               {/* --------------------------- */}
-              <div className="search-container position-relative z-1 " style={{ display: showSearch ? 'block' : 'none' }}>
-                <Form className="d-flex">
-                  <Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search" />
-                  <Button variant="outline-success">Search</Button>
-                </Form>
+              <div className="search-container position-absolute serach-box " style={{ display: showSearch ? 'block' : 'none' }}>
+                <SearchForm />
               </div>
               {/* --------------------------- */}
               <Nav.Link className='my-auto' onClick={handleSearchToggle}><AiOutlineSearch size={25} /></Nav.Link>
@@ -61,9 +60,9 @@ function Navigation() {
               {/* --------------------------- */}
               <Nav.Link as={Link} to="/cart" className="position-relative ms-3">
                 <AiOutlineShoppingCart size={35} />
-                <span className="position-absolute top-30 start-80 translate-middle badge border border-light rounded-circle bg-danger">
+                {cartLength > 0 && <span className="position-absolute top-30 start-80 translate-middle badge border border-light rounded-circle bg-danger">
                   {cartLength}
-                </span>
+                </span>}
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
