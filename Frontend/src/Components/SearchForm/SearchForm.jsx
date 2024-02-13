@@ -48,18 +48,18 @@ function SearchForm() {
                 <p>Loading...</p> // Show loading indicator
             ) : (
                 relatedProducts.length > 0 && (
-                    <div className="container mt-3 " style={{ height: '50vh', overflowY: 'auto' }}>
+                    <div className=" container-fluid mt-3 " style={{ height: '50vh', overflowY: 'auto' }}>
                         <div className="row">
                             {relatedProducts.map((product) => (
                                 <Link to={`/product/${product._id}`} key={product._id}>
-                                    <div className="col-md-12 d-flex py-2 form-item-container text-black"  style={{}}>
+                                    <div className="col-md-11 d-flex py-2 form-item-container text-black"  style={{}}>
                                         {product.image ? (
-                                            <img src={`${API_BASE_URL}/images/${product.image}`} alt={product.name} className="img-fluid" height={'50px'} width={'60px'} />
+                                            <img src={`${API_BASE_URL}/images/${product.image}`} alt={product.name} className="img-fluid image-container" height={'50px'} width={'60px'} />
                                         ) : (
                                             <div>No Image</div> // Handle no image case
                                         )}
                                         <div className='ms-3'>
-                                            <p>{product.name}</p>
+                                            <p className='d'>{product.name}</p>
                                             <p>₹ {product.new_price}</p>
                                         </div>
                                     </div>

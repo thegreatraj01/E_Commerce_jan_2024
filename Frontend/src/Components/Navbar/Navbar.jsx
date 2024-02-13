@@ -28,7 +28,10 @@ function Navigation() {
     <div className=' position-relative'>
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand className='nav_brand'> <Link to='/'>SHOPPER</Link></Navbar.Brand>
+          <Navbar.Brand className='nav_brand fs-6'> <Link to='/'>SHOPPER</Link></Navbar.Brand>
+          <div className="d-lg-none serach-box ">
+            <SearchForm />
+          </div>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto">
@@ -38,11 +41,11 @@ function Navigation() {
             </Nav>
             <Nav>
               {/* --------------------------- */}
-              <div className="search-container position-absolute serach-box " style={{ display: showSearch ? 'block' : 'none' }}>
+              <div className="search-container position-absolute serach-box" style={{ display: showSearch ? 'block' : 'none' }}>
                 <SearchForm />
               </div>
               {/* --------------------------- */}
-              <Nav.Link className='my-auto' onClick={handleSearchToggle}><AiOutlineSearch size={25} /></Nav.Link>
+              <Nav.Link className='my-auto d-none d-lg-block' onClick={handleSearchToggle}><AiOutlineSearch size={25} /></Nav.Link>
               {/* --------------------------- */}
               {!isLogin && <Nav.Link className=' border my-auto px-2 rounded-pill fw-bold' as={Link} to='/login'>Login</Nav.Link>}
               {isLogin &&

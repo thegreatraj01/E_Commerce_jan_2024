@@ -1,9 +1,31 @@
 .serach-box {
-  width: 300px;
-  right: 225px;
+  width: 25vw;
+  right:18vw;
   top: 15px;
   z-index: 10;
   max-height: 70vh;
 
   /* padding: 20px; */
+}
+
+@media (max-width: 768px) {
+  .serach-box {
+    position: absolute;
+    width: 40vw;
+    right: 25vw;
+    top: 1.4vh;
+    z-index: 10;
+    max-height: 70vh;
+  }
+}
+
+@media (max-width: 500px) {
+  .serach-box {
+    position: absolute;
+    width:45vw;
+    right: 18vw;
+    top: 1.4vh;
+    z-index: 10;
+    max-height: 70vh;
+  }
 }
