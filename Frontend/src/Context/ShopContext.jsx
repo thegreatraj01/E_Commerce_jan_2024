@@ -1,15 +1,11 @@
 import { createContext, useEffect, useState } from "react";
 import axios from 'axios';
 import { API_BASE_URL } from '../confij';
-// import allproduct from '../Components/Assets/all_product';
 
 export const ShopContext = createContext(null);
 
-
 const ShopContextProvider = (props) => {
-
     const [allproduct, setallproduct] = useState([]);
-    // const [loading, setLoading] = useState(true);
 
     const fetchallproducts = async () => {
         try {
@@ -19,26 +15,26 @@ const ShopContextProvider = (props) => {
             }
         } catch (error) {
             console.error("Error fetching products", error);
-        } finally {
-            // setLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchallproducts();
+        fetchallproducts(); // Initial fetch when component mounts
+
+        // Set interval to fetch products every 10 minutes
+        const intervalId = setInterval(fetchallproducts, 10 * 60 * 1000);
+
+        // Clean up function to clear the interval when the component unmounts
+        return () => clearInterval(intervalId);
     }, []);
 
-
-
-
     const contextValue = { allproduct };
-    // console.log(cartItem)
 
     return (
         <ShopContext.Provider value={contextValue}>
             {props.children}
         </ShopContext.Provider>
-    )
+    );
 }
 
 export default ShopContextProvider;
